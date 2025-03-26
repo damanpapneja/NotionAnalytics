@@ -873,35 +873,35 @@ with discovery_tab:
     <td style="padding: 8px;">250</td>
     <td style="padding: 8px;"><span style="color: #4caf50;">+5%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Company Announcements</span></td>
-    <td style="padding: 8px;">Latest updates</td>
+    <td style="padding: 8px;">"Latest updates"</td>
   </tr>
   <tr style="border-bottom: 1px solid #444444; font-size: 12px;">
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Product</span></td>
     <td style="padding: 8px;">200</td>
     <td style="padding: 8px;"><span style="color: red;">-3%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Product Roadmap</span></td>
-    <td style="padding: 8px;">New features</td>
+    <td style="padding: 8px;">"New features"</td>
   </tr>
   <tr style="border-bottom: 1px solid #444444; font-size: 12px;">
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Finance</span></td>
     <td style="padding: 8px;">180</td>
     <td style="padding: 8px;"><span style="color: #4caf50;">+2%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Budget Overview</span></td>
-    <td style="padding: 8px;">Quarterly Report</td>
+    <td style="padding: 8px;">"Quarterly Report"</td>
   </tr>
   <tr style="border-bottom: 1px solid #444444; font-size: 12px;">
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Engineering</span></td>
     <td style="padding: 8px;">150</td>
     <td style="padding: 8px;"><span style="color: red;">-1%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Sprint Planning</span></td>
-    <td style="padding: 8px;">Tech Innovations</td>
+    <td style="padding: 8px;">"Tech Innovations"</td>
   </tr>
   <tr style="font-size: 12px;">
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Marketing</span></td>
     <td style="padding: 8px;">120</td>
     <td style="padding: 8px;"><span style="color: #4caf50;">+7%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Campaign Metrics</span></td>
-    <td style="padding: 8px;">Ad Performance</td>
+    <td style="padding: 8px;">"Ad Performance"</td>
   </tr>
 </table>
 """, unsafe_allow_html=True)
