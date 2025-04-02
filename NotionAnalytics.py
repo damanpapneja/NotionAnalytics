@@ -2,6 +2,44 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+import base64
+import re
+
+def patch_st_markdown():
+    """Monkey-patch st.markdown to replace <div class="person-icon"></div> with inline base64 images."""
+    original_markdown = st.markdown
+
+    # Load and base64‑encode all 5 images into a list
+    images_data = []
+    for i in range(1, 6):
+        with open(f'image{i}.png', 'rb') as f:
+            b64 = base64.b64encode(f.read()).decode()
+            images_data.append(b64)
+
+    def new_markdown(html, *args, **kwargs):
+        # Replace each <div class="person-icon"></div> with a random image
+        def replacer(match):
+            chosen = random.choice(images_data)
+            return (
+                f'<div class="person-icon" '
+                f'style="background: url(\'data:image/png;base64,{chosen}\') '
+                f'no-repeat center center; background-size: contain;"></div>'
+            )
+
+        # Run a regex that looks for exactly <div class="person-icon"></div>
+        new_html = re.sub(
+            r'<div\s+class="person-icon"\s*></div>',
+            replacer,
+            str(html)  # in case "html" is not already a string
+        )
+        return original_markdown(new_html, *args, **kwargs)
+
+    # Override st.markdown with our patched version
+    st.markdown = new_markdown
+
+# Call the patch function so that st.markdown is replaced
+patch_st_markdown()
+
 
 # Set page configuration (sidebar is collapsed so it won't show)
 st.set_page_config(
@@ -12,15 +50,14 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-    @import url('https://rsms.me/inter/inter.css');
     /* Global styling */
     .stApp {
-        font-family: 'Inter', sans-serif;
+        font-family: sans-serif;
         background-color: #121212;
         color: #e0e0e0;
     }
     /* Remove the sidebar completely */
-    [data-testid="stSidebar"] { display: none; }
+    [data-testid="stSidebar"] { dispalay: none; }
 
     /* Main content area styling */
     .main .block-container {
@@ -90,6 +127,7 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
+
 
 # Top header (common across tabs)
 st.markdown(
@@ -285,7 +323,6 @@ with engagement_tab:
             fontsize=title_fontsize,
             color="#D4D4D4",
             fontweight="medium",
-            family="Inter",
             ha="left",
         )
 
@@ -321,7 +358,6 @@ with engagement_tab:
             fontsize=title_fontsize,
             color="#D4D4D4",
             fontweight="medium",
-            family="Inter",
             ha="left",
         )
 
@@ -357,7 +393,6 @@ with engagement_tab:
             fontsize=title_fontsize,
             color="#D4D4D4",
             fontweight="medium",
-            family="Inter",
             ha="left",
         )
 
@@ -873,35 +908,35 @@ with discovery_tab:
     <td style="padding: 8px;">250</td>
     <td style="padding: 8px;"><span style="color: #4caf50;">+5%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Company Announcements</span></td>
-    <td style="padding: 8px;">"Latest updates"</td>
+    <td style="padding: 8px;">Latest updates</td>
   </tr>
   <tr style="border-bottom: 1px solid #444444; font-size: 12px;">
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Product</span></td>
     <td style="padding: 8px;">200</td>
     <td style="padding: 8px;"><span style="color: red;">-3%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Product Roadmap</span></td>
-    <td style="padding: 8px;">"New features"</td>
+    <td style="padding: 8px;">New features</td>
   </tr>
   <tr style="border-bottom: 1px solid #444444; font-size: 12px;">
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Finance</span></td>
     <td style="padding: 8px;">180</td>
     <td style="padding: 8px;"><span style="color: #4caf50;">+2%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Budget Overview</span></td>
-    <td style="padding: 8px;">"Quarterly Report"</td>
+    <td style="padding: 8px;">Quarterly Report</td>
   </tr>
   <tr style="border-bottom: 1px solid #444444; font-size: 12px;">
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Engineering</span></td>
     <td style="padding: 8px;">150</td>
     <td style="padding: 8px;"><span style="color: red;">-1%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Sprint Planning</span></td>
-    <td style="padding: 8px;">"Tech Innovations"</td>
+    <td style="padding: 8px;">Tech Innovations</td>
   </tr>
   <tr style="font-size: 12px;">
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Marketing</span></td>
     <td style="padding: 8px;">120</td>
     <td style="padding: 8px;"><span style="color: #4caf50;">+7%</span></td>
     <td style="padding: 8px;"><div class="page-icon"></div><span class="icon-text">Campaign Metrics</span></td>
-    <td style="padding: 8px;">"Ad Performance"</td>
+    <td style="padding: 8px;">Ad Performance</td>
   </tr>
 </table>
 """, unsafe_allow_html=True)
